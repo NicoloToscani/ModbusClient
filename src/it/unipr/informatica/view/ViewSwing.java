@@ -1,142 +1,144 @@
 package it.unipr.informatica.view;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
 
+import de.re.easymodbus.modbusclient.ModbusClient;
 import it.unipr.informatica.controller.Modbus_Client;
-import it.unipr.informatica.model.Model;
 
 public class ViewSwing implements View {
 	
-    private Model modello;
-	
-	private Modbus_Client client;
-	
-	private static final String titolo = "Modbus TCP/IP Client";
-	
-	JFrame finestra;
-	
-	JPanel pannelloSinistra;
-	
-	JPanel pannelloCentro;
-	
-	JPanel pannelloDestra;
-	
-	JPanel pannelloAlto;
-	
-	JPanel pannelloBasso;
-	
-	Container frameContentPane;
-	
-	JButton connetti;
-	
-	JButton disconnetti;
-	
-	JTextField indirizzoServer;
-	
-	JLabel barraStato;
-
-	/*
-	 * View constructor 
-	*/
-	
-	public ViewSwing(Modbus_Client client) {
-		
-		this.client = client;
-		
-		// Windows
-		
-		finestra = new JFrame(titolo);
-		
-		finestra.setVisible(true);
-		
-		finestra.setSize(1000, 1000);
-		
-		// JPanel 
-		
-		pannelloSinistra = new JPanel();
-		
-		pannelloDestra = new JPanel();
-		
-		pannelloCentro = new JPanel();
-		
-		pannelloAlto = new JPanel();
-		
-		pannelloBasso = new JPanel();
-		
-		
-		
-		// Frame Content Pane
-		
-		finestra.getContentPane();
-		
-		finestra.setLayout(new BorderLayout());
-		
-		finestra.add(pannelloAlto,BorderLayout.NORTH);
-		
-		finestra.add(pannelloBasso, BorderLayout.SOUTH);
-		
-		// Connection buttons
-		
-		connetti = new JButton("Connetti");
-		
-		pannelloAlto.add(connetti);
-		
-		disconnetti = new JButton("Disconnetti");
-		
-		pannelloAlto.add(disconnetti);
-		
-		indirizzoServer = new JTextField("es: 192.168.1.1");
-		
-		pannelloAlto.add(indirizzoServer);
-		
-		indirizzoServer.setVisible(true);
-		
-		indirizzoServer.setEnabled(true);
-		
-		// Status bar
-		
-        barraStato = new JLabel();
-		
-		barraStato.setBorder(new EtchedBorder());
-		
-		barraStato.setText("Prova");
-		
-		
-		
-		
-		
-	
+	public ViewSwing(Modbus_Client modbus_Client) {
+		initComponent();
+		modbusClient = new ModbusClient();
 	}
 	
 	
+	 
+	/**
+     * This method is called from within the constructor to initialize the form.
+     */
+	private void initComponent(){
+		frame = new JFrame("ModbusClient");
+		connectButton = new JButton();
+		connectButton.setText("Connect");
+		disconnectButton = new JButton();
+		disconnectButton.setText("Disconnect");
+		addressIpField = new JTextField();	
+		portField = new JTextField();
+		startAddressField = new JTextField();
+		numberValuesField = new JTextField();
+		readCoilsButton = new JButton();
+		readCoilsButton.setText("Read Coils - FC1");
+		readDiscreteInputsButton = new JButton();
+		readDiscreteInputsButton.setText("Read Discrete Inputs - FC2");
+		readHoldingRegistersButton = new JButton();
+		readHoldingRegistersButton.setText("Read Holding Registers - FC3");
+		readInputRegistersBUtton = new JButton();
+		readInputRegistersBUtton.setText("Read Input Registers - FC4");
+		
+		// Setup frame size
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = toolkit.getScreenSize();
+		int widthFrame = (3 * screenSize.width) / 4;
+		int heightFrame = (3 * screenSize.height) / 4;
+        int x = (screenSize.width - widthFrame) / 2;
+        int y = (screenSize.height - heightFrame) / 2;
+        frame.setBounds(x, y, widthFrame, heightFrame);
+        
+        connectionJPanel = new JPanel();
+        connectionJPanel.setLayout(new BorderLayout());
+        connectionJPanel.add(connectButton,BorderLayout.NORTH);
+        connectionJPanel.add(disconnectButton,BorderLayout.NORTH);
+        
+        
+        frame.add(connectionJPanel,BorderLayout.WEST);
+      
+        
+       
+        
+        
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
-	public void visualizza() {
+	public void show() {
+		frame.setVisible(true);
+		
+	}
+
+
+
+	@Override
+	public void error(String error) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	
+
+
 	@Override
-	public void errore(String errore) {
+	public void message(String message) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	
+
+
 	@Override
-	public void messaggio(String messaggio) {
+	public void sure() {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+
+
+
+
+
+
+
+	// Variables declaration GUI
 	
+	private JFrame frame;
+	private JButton connectButton;
+	private JButton disconnectButton;
+	private JButton readCoilsButton;
+	private JButton readDiscreteInputsButton;
+	private JButton readHoldingRegistersButton;
+	private JButton readInputRegistersBUtton;
+	private JTextField addressIpField;
+	private JTextField portField;
+	private JTextField startAddressField;
+	private JTextField numberValuesField;
+	private JPanel connectionJPanel;
 	
+	// Variables declaration 
+	
+	private  ModbusClient modbusClient;
 
 }

@@ -1,10 +1,12 @@
 package it.unipr.informatica.view;
 public interface View {
 	
-	public void visualizza();
+	public void show();
 	
-	public void errore(String errore);
+	public void error(String error);
 	
-	public void messaggio(String messaggio);
+	public void message(String message);
+	
+	public void sure();
 	
 }
