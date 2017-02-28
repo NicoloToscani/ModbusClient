@@ -1,18 +1,20 @@
 package it.unipr.informatica.controller;
 
+import it.unipr.informatica.view.ViewBuilder;
 import it.unipr.informatica.view.ViewSwing;
+
 
 public class Modbus_Client implements Runnable {
 	
-	private ViewSwing vista;
+	private ViewBuilder view;
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		
-		vista = new ViewSwing(this);
+		view = new ViewBuilder(this);
 		
-		vista.visualizza();
+		view.setVisible(true);
 		
 	}
 	

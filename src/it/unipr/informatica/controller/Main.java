@@ -1,4 +1,7 @@
 package it.unipr.informatica.controller;
+import javax.swing.JFrame;
+
+import de.re.easymodbus.modbusclient.gui.EasyModbusTCPClientExampleGUI;
 
 public class Main {
 
@@ -7,7 +10,7 @@ public class Main {
 		
 		Modbus_Client client = new Modbus_Client();
 		client.run();
-
+		
 	}
 
 }
