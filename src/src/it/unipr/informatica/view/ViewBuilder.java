@@ -497,9 +497,9 @@ public class ViewBuilder extends JFrame implements SendDataChangedListener, Rece
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(model.client.isConnected() == true){
-				statusConnectionlabel.setText("connect");
+				statusConnectionlabel.setText("connected");
 				}
-				else statusConnectionlabel.setText("disconnect");
+				else statusConnectionlabel.setText("disconnected");
 			}
 		};
 		
